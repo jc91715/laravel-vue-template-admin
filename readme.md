@@ -2,7 +2,7 @@
 
 ### 这是什么
 每次写前端或后端的时候，都需要重头开始写，或者从老项目中`ctrl+c`或者`ctrl+v`进行项目初始化的登录模块或者前端的打包配置，使用laravel的同学一般是前后端一起写的，假如前后端分离的话，还要重新开个前端目录，很难受
-查阅了相关资料，把[Laravel Passwort](https://learnku.com/docs/laravel/5.8/passport/3907)和[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)结合在一起，可以使用laravel-mix 进行前后端分离,提高生产效率。
+查阅了相关资料，一步步，把[Laravel Passwort](https://learnku.com/docs/laravel/5.8/passport/3907)和[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)结合在一起，在vue-admin-template基础上增加了动态路由权限，可以使用laravel-mix 打包，提高生产效率。
 
 ### 资料
 
