@@ -43,7 +43,8 @@ mix.webpackConfig({
     plugins: [
         new HtmlWebpackPlugin({
             template: 'resources/js/admin/index.html',
-            filename: 'index.html'
+            filename: 'index.html',
+            inject: true
         }),
         new SpriteLoaderPlugin()
     ],

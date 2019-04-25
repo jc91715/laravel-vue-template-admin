@@ -63,3 +63,72 @@ npm run dev
 ```
 
 打包成功后访问你的域名
+
+
+##### 适配过程中学到的知识或遇到的坑
+
+###### 1加载.env中的配置
+webpack.mix.js 中加入
+```
+require('dotenv').config();
+```
+必须以MIX 开头，比如
+```
+MIX_APP_URL="${APP_URL}"
+MIX_TOKEN_KEY="${TOKEN_KEY}"
+MIX_CLIENT_ID="${CLIENT_ID}"
+MIX_CLIENT_SECRET="${CLIENT_SECRET}"
+```
+`${APP_URL}`表示加载APP_URL的配置，也可直接设置值
+``` 
+MIX_APP_URL=xxxx
+```
+
+###### 2 `svg` 坑
+
+laravel-mix 已经有对`svg`的loader，需要更改下，要不会使用不了 [detail](https://github.com/JeffreyWay/laravel-mix/issues/1423#issuecomment-360731352)
+
+```
+Mix.listen('configReady', webpackConfig => {
+    // Add "svg" to image loader test
+    const imageLoaderConfig = webpackConfig.module.rules.find(
+        rule =>
+            String(rule.test) ===
+            String(/\.(woff2?|ttf|eot|svg|otf)$/)
+    );
+    imageLoaderConfig.exclude = resolve('icons');
+});
+```
+``` 
+rules: [
+            {
+                test: /\.svg$/,
+                loader: 'svg-sprite-loader',
+                include: [resolve('icons')],
+                options: {
+                    symbolId: 'icon-[name]'
+                }
+            },
+        ]
+```
+
+###### 3退出登录
+
+退出的时候，调用
+```
+axios.delete(`oauth/tokens/${process.env.MIX_CLIENT_ID}`)
+```
+不起作用，发现这个路由经过了中间件 `web``auth`中间件，最后简单粗暴的通过清除token的方式退出登录
+```
+ logout({ commit, state }) {
+        return new Promise(resolve => {
+            commit('SET_TOKEN', '')
+            removeToken()
+            resolve()
+        })
+ }
+```
+###### 4动态路由权限
+这个是前端权限判断收获比较大的一点
+可以看下 [手摸手，带你用vue撸后台 系列二(登录权限篇)](https://juejin.im/post/591aa14f570c35006961acac)
+
