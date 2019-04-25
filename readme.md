@@ -14,13 +14,13 @@
 
 ### 体验地址
 
-[地址]()
+[地址](http://laravel-vue-template-admin.jc91715.top)
 
 ### 开始使用
 
 #### 下载安装
 ```
-git clone xxxx project
+git clone https://github.com/jc91715/laravel-vue-template-admin project
 cd project
 composer install
 
